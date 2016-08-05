@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Giphy in a Jiphy</title>
+
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+
+
+</head>
+<body>
+
+<!-- This is the container for responsive elements -->
+<div class="container">
+
+<!-- Div for buttons -->
+	<div id="buttonField"></div>
+		<hr>
+
+<!-- Text input and search form -->
+	<form>
+		<input type="text" id="gifSearch">
+		<input type="submit" value="Submit" id="submit">
+	</form>
+
+	<hr>
+
+<!-- Gifs will appear in this div -->
+	<div id="gifField"></div>
+
+</div>
+
+<!-- jQuery -->
+<script src="https://code.jquery.com/jquery-3.1.0.min.js" integrity="sha256-cCueBR6CsyA4/9szpPfrX3s49M9vUU5BgtiJj06wt/s=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+
+var gifCount = 0;
+	
+// On click event for submit button.
+$('#submit').on('click', function(){
+
+	term = $('#gifSearch').val().trim();
+	console.log(term);
+	
+
+	// Creates new image elements for gifs
+	gif = $('<p>');
+
+	// Adds a number to the gif button
+	gif.attr('id', 'item-' + gifCount)
+
+	// Appends 
+	gif.append(term)
+
+	// Adds button specific ids
+	// button.attr('id', 'item-' + gifCount)
+
+
+	// button.attr('data-gif', gifCount)
+	// button.addClass('checkbox');
+
+
+	
+
+
+$('buttonField').append(button);
+		console.log(button);
+
+
+	gifCount++
+
+
+
+button.on('click', function() {
+        var gif = $(this).data('gif');
+        var queryURL = "http://api.giphy.com/v1/gifs/search?q=" + gif + "&api_key=dc6zaTOxFJmzC&limit=10";
+
+
+
+        	 $.ajax({
+                url: queryURL,
+                method: 'GET'
+            })
+            .done(function(response) {	
+            	console.log(response)
+
+
+
+            	var results = response.data;
+
+
+
+            	for (var i = 0; i < results.length; i++) {
+
+
+
+            		var gifDiv =$('<div>');
+                    var p = $('<p>');
+
+ 					p.text(results[i].rating);
+
+ 					var gifImage = $('<img>');
+                    gifImage.attr('src', results[i].images.fixed_height.url)
+
+
+                    gifDiv.append(p);
+                    gifDiv.append(gifImage);
+
+
+                    $('#gifsAppearHere').prepend(gifDiv);
+                }
+
+            })    	
+
+		});
+
+
+
+
+
+
+	return false;
+
+
+});
+
+
+
+//$(document.body).on('click', )
+
+
+
+
+
+
+
+
+</script>
+
+
+</body>
+</html>
